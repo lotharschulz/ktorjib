@@ -15,7 +15,7 @@ fun Application.main() {
     install(CallLogging)
     install(Routing) {
         get("/") {
-            call.respondText("hi", ContentType.Text.Html)
+            call.respondText("hello", ContentType.Text.Html)
         }
     }
 }

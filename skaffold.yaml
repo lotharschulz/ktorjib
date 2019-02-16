@@ -1,0 +1,7 @@
+apiVersion: skaffold/v1beta5
+kind: Config
+build:
+  artifacts:
+    - image: gcr.io/ktor-jib/kjib-image
+      # Use this for a Gradle project:
+      jibGradle: {}
