@@ -1,4 +1,4 @@
-# [ktor](https://github.com/ktorio/ktor) app continuously delivered to kubernetes  
+# Continuous Delivery to Kubernetes with [jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [ktor](https://github.com/ktorio/ktor)  
 
 
 ##### preconditions
