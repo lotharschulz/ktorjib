@@ -1,13 +1,13 @@
 # [ktor](https://github.com/ktorio/ktor) app continuously delivered to kubernetes  
 
 
-preconditions
+##### preconditions
 - [minikube](https://kubernetes.io/docs/setup/minikube/)
 - [skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold)
 - [ktor](https://ktor.io/)
 - [gradle](https://gradle.org/)
 
-continuous delivery
+#### continuous delivery
 ```
 skaffold dev
 # access ktor web app on 'http://127.0.0.1:8080/'
@@ -15,24 +15,24 @@ skaffold dev
 ```
 
 
-run application with jib & docker
+#### run application with jib & docker
 ```
 ./gradlew jibDockerBuild && docker run --rm -p 8080:8080 ktor01:1.0-SNAPSHOT
 ```
 
-run application
+#### run application
 
 ```
 ./gradlew run
 ```
 
-test application
+#### test application
 
 ```
 ./gradlew test
 ```
 
-clean up
+#### clean up
 ```
 ./gradlew clean
 docker rmi $(docker images -q)
