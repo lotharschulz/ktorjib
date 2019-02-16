@@ -1,4 +1,19 @@
-# simple [ktor](https://github.com/ktorio/ktor) docker application packed with [jib](https://github.com/GoogleContainerTools/jib)  
+# [ktor](https://github.com/ktorio/ktor) app continuously delivered to kubernetes  
+
+
+preconditions
+- [minikube](https://kubernetes.io/docs/setup/minikube/)
+- [skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold)
+- [ktor](https://ktor.io/)
+- [gradle](https://gradle.org/)
+
+continuous delivery
+```
+skaffold dev
+# access ktor web app on 'http://127.0.0.1:8080/'
+# change the ktor app and reload 'http://127.0.0.1:8080/' 
+```
+
 
 run application with jib & docker
 ```
