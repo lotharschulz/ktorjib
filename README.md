@@ -41,7 +41,7 @@ docker rmi $(docker images -q)
 ```
 
 #### blog post
-[_Kotlin Continuous Delivery to Kubernetes_ on lotarschulz.info](https://www.lotharschulz.info/2019/02/17/Kotlin-Continuous-Delivery-to-Kubernetes/)
+[_Kotlin Continuous Delivery to Kubernetes_ on lotharschulz.info](https://www.lotharschulz.info/2019/02/17/Kotlin-Continuous-Delivery-to-Kubernetes/)
 
 #### further reading
 - [Jib 1.0.0 is GA—building Java Docker images has never been easier](https://cloud.google.com/blog/products/application-development/jib-1-0-0-is-ga-building-java-docker-images-has-never-been-easier)
