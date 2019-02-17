@@ -2,10 +2,10 @@
 
 
 ##### preconditions
-- [minikube](https://kubernetes.io/docs/setup/minikube/)
+- [kubernetes](https://kubernetes.io/) / [minikube](https://kubernetes.io/docs/setup/minikube/) / [docker](https://www.docker.com/)
 - [skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold)
-- [ktor](https://ktor.io/)
-- [gradle](https://gradle.org/)
+- [ktor](https://ktor.io/) / [kotlin](https://kotlinlang.org/)
+- [gradle](https://gradle.org/) / [jib](https://github.com/GoogleContainerTools/jib)
 
 #### continuous delivery
 ```
