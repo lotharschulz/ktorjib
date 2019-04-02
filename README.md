@@ -20,6 +20,8 @@ skaffold dev
 #### run application with jib & docker
 ```
 ./gradlew jibDockerBuild && docker run --rm -p 8080:8080 ktor01:1.0-SNAPSHOT
+# specify docker image name
+./gradlew jibDockerBuild --image=myimagename && docker run --rm -p 8080:8080 myimagename
 ```
 
 #### run application
