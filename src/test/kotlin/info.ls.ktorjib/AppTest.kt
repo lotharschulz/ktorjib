@@ -14,7 +14,7 @@ class AppTest {
     fun testRequests() = withTestApplication(Application::main) {
         with(handleRequest(HttpMethod.Get, "/")) {
             assertEquals(HttpStatusCode.OK, response.status())
-            assertEquals("hello", response.content)
+            assertEquals("hi", response.content)
         }
     }
 }
