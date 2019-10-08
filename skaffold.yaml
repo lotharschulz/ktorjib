@@ -1,7 +1,7 @@
-apiVersion: skaffold/v1beta5
+# https://github.com/GoogleContainerTools/skaffold/blob/master/examples/jib-gradle/skaffold.yaml#L1-L6 @ 2019 10 08
+apiVersion: skaffold/v1beta15
 kind: Config
 build:
   artifacts:
     - image: gcr.io/ktor-jib/kjib-image
-      # Use this for a Gradle project:
-      jibGradle: {}
+      jib: {}
