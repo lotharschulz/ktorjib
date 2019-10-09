@@ -1,4 +1,3 @@
-//val kotlinVersion by extra("1.3.50")
 plugins {
     application
     kotlin("jvm") version "1.3.50"
@@ -28,12 +27,9 @@ application {
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_12
-//java.targetCompatibility = JavaVersion.VERSION_12
 
 dependencies {
     implementation(kotlin("stdlib"))
-    //implementation(kotlin("stdlib-jdk11", "1.3.50"))
-    //compile("org.jetbrains.kotlin:kotlin-stdlib:1.3.50")
 
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
 
@@ -51,21 +47,6 @@ jib {
     container {
         ports = listOf("8080")
         mainClass = this@Build_gradle.mainClass
-
-/*        jvmFlags = listOf(
-                "-server",
-                "-Djava.awt.headless=true",
-                "-Dio.netty.tryReflectionSetAccessible=false",
-                //"--add-opens java.base/jdk.internal.misc=ALL-UNNAMED",
-                "-XX:+UnlockExperimentalVMOptions",
-                //"-XX:+UseCGroupMemoryLimitForHeap",
-                //"-XX:InitialRAMFraction=2",
-                //"-XX:MinRAMFraction=2",
-                //"-XX:MaxRAMFraction=2",
-                "-XX:+UseG1GC",
-                "-XX:MaxGCPauseMillis=100",
-                "-XX:+UseStringDeduplication"
-        )*/
     }
 }
 
