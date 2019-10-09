@@ -9,7 +9,7 @@ group = "ktor01"
 version = "1.0-SNAPSHOT"
 
 
-val ktorVersion by extra("1.2.4")
+val ktorVersion by extra("1.2.5")
 val logbackVersion by extra("1.2.3")
 
 val mainClass by extra("io.ktor.server.netty.EngineMain")
@@ -27,8 +27,8 @@ application {
     )
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_11
-//java.targetCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_12
+//java.targetCompatibility = JavaVersion.VERSION_12
 
 dependencies {
     implementation(kotlin("stdlib"))
@@ -45,11 +45,9 @@ dependencies {
 }
 
 jib {
-/*
     from {
-        image = "openjdk:11"
+        image = "openjdk:12"
     }
-*/
     container {
         ports = listOf("8080")
         mainClass = this@Build_gradle.mainClass
