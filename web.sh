@@ -11,8 +11,8 @@ port=$(kubectl get svc web -o json | jq '.spec? | .ports? | .[] | .nodePort?')
 
 while :
 do
-        echo "curl http://$ip:$port/: "
-        curl http://$ip:$port/ || true
+        echo "curl http://$ip:$port: "
+        curl http://$ip:$port || true
         echo " "
         sleep 4s
 done
