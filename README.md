@@ -21,7 +21,7 @@ other terminal:
 ./web.sh
 ```
 The bash script checks the service endpoint for code changes becoming effective. 
-The script also assumes kubernetes runs on (minikube)[web.sh#L9] and the [web kubernetes service is already deployed]([web.sh#L10].
+The script also assumes kubernetes runs on (minikube)[../blob/master/web.sh#L9] and the (web kubernetes service is already deployed)[../blob/master/web.sh#L10].
 
 ##### Screencast
 [![asciicast](https://asciinema.org/a/5K9pJbQYoGuuio937cGF09UFy.svg)](https://asciinema.org/a/5K9pJbQYoGuuio937cGF09UFy?t=16)
