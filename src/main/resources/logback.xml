@@ -1,0 +1,16 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- https://stackoverflow.com/a/23096247 -->
+            <pattern>%date{"yyyy-MM-dd'T'HH:mm:ss,SSSXXX", UTC} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="trace">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+    <!-- https://github.com/ktorio/ktor/issues/1203#issuecomment-505912890 -->
+    <logger name="io.netty" level="INFO"/>
+
+</configuration>
