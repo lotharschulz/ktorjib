@@ -2,16 +2,17 @@
 
 
 ##### preconditions
-- [kubernetes](https://kubernetes.io/) (v1.13.4)
-- [minikube](https://kubernetes.io/docs/setup/minikube/) (v0.35.0)
-- [docker](https://www.docker.com/) (v18.09.7)
-- [skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v0.39.0)
-- [ktor](https://ktor.io/)
-- [kotlin](https://kotlinlang.org/) (1.2.5)
-- [gradle](https://gradle.org/) (v5.1.1)
-- [jib](https://github.com/GoogleContainerTools/jib) (1.6.1)
+- [Kubernetes](https://kubernetes.io/) (v1.13.4)
+- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v0.35.0)
+- [Docker](https://www.docker.com/) (v18.09.7)
+- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v0.39.0)
+- [Ktor](https://ktor.io/)
+- [Kotlin](https://kotlinlang.org/) (1.2.5)
+- [Gradle](https://gradle.org/) (v5.1.1)
+- [Jib](https://github.com/GoogleContainerTools/jib) (1.6.1)
+  - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
 
-#### continuous delivery
+#### Continuous delivery
 ```
 skaffold dev
 ```
@@ -19,13 +20,13 @@ other terminal:
 ```
 ./web.sh
 ```
-The script checks the service endpoint for code changes becoming effective. 
-The script also assumes kubernetes runs on (minikube)[link auf zeile ip=$(minikube ip) ] and the web kubernetes service is already deployed.
+The bash script checks the service endpoint for code changes becoming effective. 
+The script also assumes kubernetes runs on (minikube)[web.sh#L9] and the [web kubernetes service is already deployed]([web.sh#L10].
 
-##### screencast
+##### Screencast
 [![asciicast](https://asciinema.org/a/5K9pJbQYoGuuio937cGF09UFy.svg)](https://asciinema.org/a/5K9pJbQYoGuuio937cGF09UFy?t=16)
 
-#### run application with jib & docker
+#### Run application with Jib & Docker
 ```
 ./gradlew jibDockerBuild && docker run --rm -p 8080:8080 ktor01:1.0-SNAPSHOT
 # specify docker image name
@@ -37,7 +38,7 @@ curl http://0.0.0.0:8080
 ```
 
 
-#### run application
+#### Run application with Gradle
 
 ```
 ./gradlew run
@@ -47,23 +48,23 @@ access the endpoint:
 curl http://0.0.0.0:8080
 ```
 
-#### test application
+#### Test application
 
 ```
 ./gradlew test
 ```
 
-#### clean up
+#### Clean up with Gradle
 ```
 ./gradlew clean
 docker rmi $(docker images -q)
 ```
 
-#### blog post
-- [Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info](https://www.lotharschulz.info/2019/10/09/deploy-kotlin-applications-to-kubernetes-without-dockerfiles/‎)
+#### Blog post
+- Coming: Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info
 - [Kotlin Continuous Delivery to Kubernetes on lotharschulz.info](https://www.lotharschulz.info/2019/02/17/Kotlin-Continuous-Delivery-to-Kubernetes/)
 
-#### further reading
+#### Further reading
 - [Ktor](github.com/ktorio/ktor)
 - [Jib](github.com/GoogleContainerTools/jib)
 - [Skaffold](github.com/GoogleContainerTools/skaffold/)
@@ -71,4 +72,3 @@ docker rmi $(docker images -q)
 - [What is Jib?](https://github.com/GoogleContainerTools/jib#what-is-jib)
 - [Containerize your Gradle Java project](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
 - [Containerize a Ktor application with Jib](https://github.com/GoogleContainerTools/jib/tree/master/examples/ktor)
-
