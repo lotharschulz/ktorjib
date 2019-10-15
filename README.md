@@ -2,6 +2,8 @@
 
 
 ##### preconditions
+- [VirtualBox](https://www.virtualbox.org/)
+- [jq](https://stedolan.github.io/jq/download/)
 - [Kubernetes](https://kubernetes.io/) (v1.13.4)
 - [Minikube](https://kubernetes.io/docs/setup/minikube/) (v0.35.0)
 - [Docker](https://www.docker.com/) (v18.09.7)
