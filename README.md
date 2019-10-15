@@ -2,10 +2,10 @@
 
 
 ##### preconditions
-- [VirtualBox](https://www.virtualbox.org/)
 - [jq](https://stedolan.github.io/jq/download/)
 - [Kubernetes](https://kubernetes.io/) (v1.13.4)
 - [Minikube](https://kubernetes.io/docs/setup/minikube/) (v0.35.0)
+  - one VM provider [VirtualBox](https://www.virtualbox.org/)
 - [Docker](https://www.docker.com/) (v18.09.7)
 - [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v0.39.0)
 - [Ktor](https://ktor.io/)
