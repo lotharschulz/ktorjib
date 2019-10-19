@@ -63,7 +63,7 @@ docker rmi $(docker images -q)
 ```
 
 #### Blog post
-- Coming: Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info
+- [Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info](https://www.lotharschulz.info/2019/10/17/deploy-kotlin-applications-to-kubernetes-without-dockerfiles/)
 - [Kotlin Continuous Delivery to Kubernetes on lotharschulz.info](https://www.lotharschulz.info/2019/02/17/Kotlin-Continuous-Delivery-to-Kubernetes/)
 
 #### Further reading
