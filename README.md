@@ -6,14 +6,14 @@
 - [Kubernetes](https://kubernetes.io/) (v1.13.4)
 - [Minikube](https://kubernetes.io/docs/setup/minikube/) (v0.35.0)
   - one VM provider [VirtualBox](https://www.virtualbox.org/)
-- [Docker](https://www.docker.com/) (v18.09.7)
+- [Docker](https://www.docker.com/) (v19.03.8)
 - [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v0.39.0)
 - [Java 12](https://jdk.java.net/12/)
   - [community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
-- [Kotlin](https://kotlinlang.org/) (1.2.5)
-- [Ktor](https://ktor.io/)
-- [Gradle](https://gradle.org/) (v5.1.1)
-- [Jib](https://github.com/GoogleContainerTools/jib) (1.6.1)
+- [Kotlin](https://kotlinlang.org/) (1.3.71)
+- [Ktor](https://ktor.io/) (1.3.2)
+- [Gradle](https://gradle.org/) (v6.2.2)
+- [Jib](https://github.com/GoogleContainerTools/jib) (2.1.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
 
 #### Continuous delivery
@@ -32,7 +32,7 @@ The script also assumes kubernetes runs on [minikube](web.sh#L9) and the [web ku
 
 #### Run application with Jib & Docker
 ```
-./gradlew jibDockerBuild && docker run --rm -p 8080:8080 ktor01:1.0-SNAPSHOT
+./gradlew jibDockerBuild && docker run --rm -p 8080:8080 ktor01.1:1.1-SNAPSHOT
 # specify docker image name
 ./gradlew jibDockerBuild --image=myimagename && docker run --rm -p 8080:8080 myimagename
 ```

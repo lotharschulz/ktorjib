@@ -1,14 +1,14 @@
 plugins {
     application
-    kotlin("jvm") version "1.3.50"
-    id("com.google.cloud.tools.jib") version "1.6.1"
+    kotlin("jvm") version "1.3.71"
+    id("com.google.cloud.tools.jib") version "2.1.0"
 }
 
 group = "ktor01"
-version = "1.0-SNAPSHOT"
+version = "1.1-SNAPSHOT"
 
 
-val ktorVersion by extra("1.2.5")
+val ktorVersion by extra("1.3.2")
 val logbackVersion by extra("1.2.3")
 
 val mainClass by extra("io.ktor.server.netty.EngineMain")
