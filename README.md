@@ -64,6 +64,14 @@ curl http://0.0.0.0:8080
 docker rmi $(docker images -q)
 ```
 
+###### notes
+- https://github.com/GoogleContainerTools/jib/search?q=java+14&type=Code
+- https://github.com/GoogleContainerTools/jib/blob/master/jib-core/CHANGELOG.md
+- https://github.com/GoogleContainerTools/jib/issues/2015
+- https://github.com/GoogleContainerTools/jib/pull/2017/files
+- https://github.com/GoogleContainerTools/jib/issues/2015#issuecomment-534168864
+- https://asm.ow2.io/versions.html
+
 #### Blog posts
 - [Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info](https://www.lotharschulz.info/2019/10/17/deploy-kotlin-applications-to-kubernetes-without-dockerfiles/)
 - [Kotlin Continuous Delivery to Kubernetes on lotharschulz.info](https://www.lotharschulz.info/2019/02/17/Kotlin-Continuous-Delivery-to-Kubernetes/)
