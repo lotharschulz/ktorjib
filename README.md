@@ -3,11 +3,11 @@
 
 ##### preconditions
 - [jq](https://stedolan.github.io/jq/download/)
-- [Kubernetes](https://kubernetes.io/) (v1.13.4)
-- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v0.35.0)
+- [Kubernetes](https://kubernetes.io/) (v1.17.3 on minikube, 1.15 on EKS)
+- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.8.2)
   - one VM provider [VirtualBox](https://www.virtualbox.org/)
 - [Docker](https://www.docker.com/) (v19.03.8)
-- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v0.39.0)
+- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.7.0)
 - [Java 12](https://jdk.java.net/12/)
   - [community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
 - [Kotlin](https://kotlinlang.org/) (1.3.71)
@@ -101,11 +101,17 @@ Script compilation error:
 ```
 
 ```kotlin
-#works:
+// works:
 ...
-JavaVersion.VERSION_14
+JavaVersion.VERSION_12
 ...
 image = "openjdk:14"
+
+// but for consistency
+...
+JavaVersion.VERSION_12
+...
+image = "openjdk:12"
 ```
 
 #### Blog posts
