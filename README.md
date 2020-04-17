@@ -3,8 +3,8 @@
 
 ##### preconditions
 - [jq](https://stedolan.github.io/jq/download/)
-- [Kubernetes](https://kubernetes.io/) (v1.17.3 on minikube, 1.15 on EKS)
-- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.8.2)
+- [Kubernetes](https://kubernetes.io/) (v1.18.0 on minikube, 1.15 on EKS)
+- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.9.2)
   - one VM provider [VirtualBox](https://www.virtualbox.org/)
 - [Docker](https://www.docker.com/) (v19.03.8)
 - [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.7.0)
@@ -113,6 +113,54 @@ JavaVersion.VERSION_12
 ...
 image = "openjdk:12"
 ```
+
+```
+minikube start --v=5 --kubernetes-version=1.18.0
+```
+
+```
+# eks cluster creation via eksctl similar to https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/
+# eksctl create cluster .... with $CLUSTER_NAME defined
+ENDPOINT_URL=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.endpoint --output text)
+echo $ENDPOINT_URL
+CA_CERT=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.certificateAuthority.data --output text)
+echo $CA_CERT
+
+# install https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
+
+ll ~/.kube
+# in case the folder does not exists
+mkdir -p ~/.kube
+
+cat << KBCFG > ~/.kube/config-${CLUSTER_NAME}
+apiVersion: v1
+clusters:
+- cluster:
+    server: $endpoint_url
+    certificate-authority-data: $CA_CERT
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: aws
+  name: aws
+current-context: aws
+kind: Config
+preferences: {}
+users:
+- name: aws
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      command: aws-iam-authenticator
+      args:
+        - "token"
+        - "-i"
+        - "$CLUSTER_NAME"
+KBCFG
+
+```
+
 
 #### Blog posts
 - [Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info](https://www.lotharschulz.info/2019/10/17/deploy-kotlin-applications-to-kubernetes-without-dockerfiles/)
