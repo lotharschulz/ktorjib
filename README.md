@@ -125,6 +125,10 @@ ENDPOINT_URL=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.end
 echo $ENDPOINT_URL
 CA_CERT=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.certificateAuthority.data --output text)
 echo $CA_CERT
+AWS_REGION=$(aws configure get region)
+echo $AWS_REGION
+AWS_ENV=test
+echo AWS_ENV
 
 # install https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
 
@@ -136,29 +140,35 @@ cat << KBCFG > ~/.kube/config-${CLUSTER_NAME}
 apiVersion: v1
 clusters:
 - cluster:
-    server: $endpoint_url
     certificate-authority-data: $CA_CERT
-  name: kubernetes
+    server: $ENDPOINT_URL
+  name: $CLUSTER_NAME
 contexts:
 - context:
-    cluster: kubernetes
-    user: aws
-  name: aws
-current-context: aws
+    cluster: $CLUSTER_NAME
+    user: $CLUSTER_NAME
+  name: $CLUSTER_NAME
+current-context: $CLUSTER_NAME
 kind: Config
 preferences: {}
 users:
-- name: aws
+- name: $CLUSTER_NAME
   user:
     exec:
       apiVersion: client.authentication.k8s.io/v1alpha1
-      command: aws-iam-authenticator
       args:
-        - "token"
-        - "-i"
-        - "$CLUSTER_NAME"
+      - --region
+      - $AWS_REGION
+      - eks
+      - get-token
+      - --cluster-name
+      - $CLUSTER_NAME
+      command: aws
+      env:
+      - name: AWS_PROFILE
+        value: $AWS_ENV
 KBCFG
-
+export KUBECONFIG=$KUBECONFIG:~/.kube/config-${cluster_name}
 ```
 
 
