@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
         - name: web
+          #image: gcr.io/ktor-jib/kjib-image
           image: ${ECRREPO_URI}
           ports:
             - containerPort: 8080
