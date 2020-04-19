@@ -205,11 +205,11 @@ kubectl create secret docker-registry $KUBE_SECRET_LABEL \
  --docker-password="${KUBE_SECRET_PASSWORD}" \
  --docker-email="${KUBE_SECRET_EMAIL}"
 
-# set up namespace
-export KTORJIB_K8S_NAMESPACE=ktorjib
-echo ${KTORJIB_K8S_NAMESPACE}
-kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
-kubectl get namespaces
+## set up namespace
+#export KTORJIB_K8S_NAMESPACE=ktorjib
+#echo ${KTORJIB_K8S_NAMESPACE}
+#kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
+#kubectl get namespaces
 
 # set up skaffold config
 cat << SKFLDCFG > skaffold.yaml
@@ -220,8 +220,8 @@ build:
   artifacts:
     - image: ${ECRREPO_URI}
       jib: {}
-  cluster:
-    namespace: ${KTORJIB_K8S_NAMESPACE}
+#  cluster:
+#    namespace: ${KTORJIB_K8S_NAMESPACE}
 deploy:
   kubectl:
     manifests:
