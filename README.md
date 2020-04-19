@@ -1,13 +1,12 @@
 # Continuous Delivery to Kubernetes with [jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [ktor](https://github.com/ktorio/ktor)  
 
-
-##### preconditions
+## Preconditions
 - [jq](https://stedolan.github.io/jq/download/)
 - [Kubernetes](https://kubernetes.io/) (v1.18.0 on minikube, 1.15 on EKS)
 - [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.9.2)
   - one VM provider [VirtualBox](https://www.virtualbox.org/)
 - [Docker](https://www.docker.com/) (v19.03.8)
-- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.7.0)
+- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.8.0)
 - [Java 12](https://jdk.java.net/12/)
   - [community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
 - [Kotlin](https://kotlinlang.org/) (1.3.71)
@@ -16,7 +15,7 @@
 - [Jib](https://github.com/GoogleContainerTools/jib) (2.1.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
 
-#### Continuous delivery
+## Continuous delivery
 ```
 skaffold dev
 ```
@@ -27,8 +26,10 @@ other terminal:
 The bash script checks the service endpoint for code changes becoming effective. 
 The script also assumes kubernetes runs on [minikube](web.sh#L9) and the [web kubernetes service is already deployed](web.sh#L10).
 
-##### Screencast
+### Screencast
 [![asciicast](https://asciinema.org/a/vfx729qpylmfdroBTXJmTH2bw.svg)](https://asciinema.org/a/vfx729qpylmfdroBTXJmTH2bw?t=14)
+
+### Run application
 
 #### Run application with Jib & Docker
 ```
@@ -41,7 +42,6 @@ access the endpoint:
 curl http://0.0.0.0:8080
 ```
 
-
 #### Run application with Gradle
 
 ```
@@ -52,21 +52,21 @@ access the endpoint:
 curl http://0.0.0.0:8080
 ```
 
-#### Test application
+### Test application
 
 ```
 ./gradlew test
 ```
 
-#### Clean up with Gradle
+### Clean up with Gradle
 ```
 ./gradlew clean
 docker rmi $(docker images -q)
 ```
 
-##### Notes
+### Notes
 
-###### Java versions
+#### Java versions
 
 ```
 FAILURE: Build failed with an exception
@@ -106,7 +106,7 @@ JavaVersion.VERSION_12
 image = "openjdk:12"
 ```
 
-####### links
+##### links
 - https://github.com/GoogleContainerTools/jib/search?q=java+14&type=Code
 - https://github.com/GoogleContainerTools/jib/blob/master/jib-core/CHANGELOG.md
 - https://github.com/GoogleContainerTools/jib/issues/2015
@@ -118,12 +118,12 @@ image = "openjdk:12"
 - https://github.com/GoogleContainerTools/distroless/blob/master/examples/java/Dockerfile
 - https://console.cloud.google.com/gcr/images/distroless/GLOBAL/java?gcrImageListsize=30&gcrImageListsort=-uploaded (version 11)
 
-###### start minikube
+#### Start minikube
 ```
 minikube start --v=5 --kubernetes-version=1.18.0
 ```
 
-###### skaffold & aws
+#### Skaffold & aws
 
 ```
 # eks cluster creation via eksctl similar to https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/
@@ -232,15 +232,15 @@ SKFLDCFG
 cp skaffold.yaml skaffold-ecr.yaml_
 ```
 
-####### links
+##### links
 - https://github.com/stelligent/skaffold_on_aws
 - https://github.com/aws-samples/aws-microservices-deploy-options/blob/master/skaffold.md
 
-#### Blog posts
+# Blog posts
 - [Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info](https://www.lotharschulz.info/2019/10/17/deploy-kotlin-applications-to-kubernetes-without-dockerfiles/)
 - [Kotlin Continuous Delivery to Kubernetes on lotharschulz.info](https://www.lotharschulz.info/2019/02/17/Kotlin-Continuous-Delivery-to-Kubernetes/)
 
-#### Further reading
+# Further reading
 - [Ktor](github.com/ktorio/ktor)
 - [Jib](github.com/GoogleContainerTools/jib)
 - [Skaffold](github.com/GoogleContainerTools/skaffold/)
