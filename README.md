@@ -72,7 +72,7 @@ curl http://0.0.0.0:8080
 docker rmi $(docker images -q)
 ```
 
-## Skaffold & aws
+## Skaffold -> EKS, ECR on AWS
 
 ```
 # eks cluster creation via eksctl similar to https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/
@@ -185,9 +185,11 @@ skaffold dev
 - https://github.com/stelligent/skaffold_on_aws
 - https://github.com/aws-samples/aws-microservices-deploy-options/blob/master/skaffold.md
 
-## Start minikube
+## Skaffold -> Minikube
 ```
 minikube start --v=5 --kubernetes-version=1.18.0
+# start skaffold flow
+skaffold dev
 ```
 
 ### Notes
