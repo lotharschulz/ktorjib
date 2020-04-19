@@ -218,6 +218,7 @@ apiVersion: skaffold/v2beta2
 kind: Config
 build:
   artifacts:
+    #- image: gcr.io/ktor-jib/kjib-image
     - image: ${ECRREPO_URI}
       jib: {}
 #  cluster:
