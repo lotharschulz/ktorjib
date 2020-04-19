@@ -9,7 +9,7 @@
 - [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.8.0)
 - [Java 12](https://jdk.java.net/12/)
   - [community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
-- [Kotlin](https://kotlinlang.org/) (1.3.71)
+- [Kotlin](https://kotlinlang.org/) (1.3.72)
 - [Ktor](https://ktor.io/) (1.3.2)
 - [Gradle](https://gradle.org/) (v6.2.2)
 - [Jib](https://github.com/GoogleContainerTools/jib) (2.1.0)
@@ -21,12 +21,20 @@ skaffold dev
 ```
 other terminal:
 ```
-./web.sh
+./web-eks.sh # EKS on AWS
+# or
+./web.sh # local minikube
 ```
 The bash script checks the service endpoint for code changes becoming effective. 
-The script also assumes kubernetes runs on [minikube](web.sh#L9) and the [web kubernetes service is already deployed](web.sh#L10).
+The `web-eks.sh` script assumes kubernetes runs on [EKS](web-eks.sh#L12) and the [web kubernetes service is already deployed](web-eks.sh#L13).
+The `web.sh` script assumes kubernetes runs on [minikube](web.sh#L9) and the [web kubernetes service is already deployed](web.sh#L10).
 
 ### Screencast
+
+#### EKS on AWS
+[![asciicast](https://asciinema.org/a/321763.svg)](https://asciinema.org/a/321763?t=20)
+
+#### Minikube in local
 [![asciicast](https://asciinema.org/a/vfx729qpylmfdroBTXJmTH2bw.svg)](https://asciinema.org/a/vfx729qpylmfdroBTXJmTH2bw?t=14)
 
 ### Run application
@@ -64,70 +72,11 @@ curl http://0.0.0.0:8080
 docker rmi $(docker images -q)
 ```
 
-### Notes
-
-#### Java versions
-
-```
-FAILURE: Build failed with an exception
-....
-* What went wrong:
-Script compilation error:
-
-  Line 29: java.sourceCompatibility = JavaVersion.VERSION_13
-                                                  ^ Unresolved reference: VERSION_13
-
-1 error
-```
-
-```
-FAILURE: Build failed with an exception.
-...
-* What went wrong:
-Script compilation error:
-
-  Line 29: java.sourceCompatibility = JavaVersion.VERSION_14
-                                                  ^ Unresolved reference: VERSION_14
-
-1 error
-```
-
-```kotlin
-// works:
-...
-JavaVersion.VERSION_12
-...
-image = "openjdk:14"
-
-// but for consistency
-...
-JavaVersion.VERSION_12
-...
-image = "openjdk:12"
-```
-
-##### links
-- https://github.com/GoogleContainerTools/jib/search?q=java+14&type=Code
-- https://github.com/GoogleContainerTools/jib/blob/master/jib-core/CHANGELOG.md
-- https://github.com/GoogleContainerTools/jib/issues/2015
-- https://github.com/GoogleContainerTools/jib/pull/2017/files
-- https://github.com/GoogleContainerTools/jib/issues/2015#issuecomment-534168864
-- https://asm.ow2.io/versions.html
-- java 8 or 11 -> https://github.com/GoogleContainerTools/distroless/tree/master/java
-- https://github.com/GoogleContainerTools/distroless/tree/master/java#image-contents
-- https://github.com/GoogleContainerTools/distroless/blob/master/examples/java/Dockerfile
-- https://console.cloud.google.com/gcr/images/distroless/GLOBAL/java?gcrImageListsize=30&gcrImageListsort=-uploaded (version 11)
-
-#### Start minikube
-```
-minikube start --v=5 --kubernetes-version=1.18.0
-```
-
-#### Skaffold & aws
+## Skaffold & aws
 
 ```
 # eks cluster creation via eksctl similar to https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/
-# eksctl create cluster .... with $CLUSTER_NAME defined
+# eksctl create cluster .... with defined ENV '$CLUSTER_NAME' 
 ENDPOINT_URL=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.endpoint --output text)
 echo $ENDPOINT_URL
 CA_CERT=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.certificateAuthority.data --output text)
@@ -223,19 +172,77 @@ build:
       jib: {}
 #  cluster:
 #    namespace: ${KTORJIB_K8S_NAMESPACE}
-deploy:
-  kubectl:
-    manifests:
-      - k8s-*
 SKFLDCFG
 
 # copy the skaffold config file for backup
 cp skaffold.yaml skaffold-ecr.yaml_
+
+# start skaffold flow
+skaffold dev
+```
+
+### links
+- https://github.com/stelligent/skaffold_on_aws
+- https://github.com/aws-samples/aws-microservices-deploy-options/blob/master/skaffold.md
+
+## Start minikube
+```
+minikube start --v=5 --kubernetes-version=1.18.0
+```
+
+### Notes
+
+#### Java versions
+
+```
+FAILURE: Build failed with an exception
+....
+* What went wrong:
+Script compilation error:
+
+  Line 29: java.sourceCompatibility = JavaVersion.VERSION_13
+                                                  ^ Unresolved reference: VERSION_13
+
+1 error
+```
+
+```
+FAILURE: Build failed with an exception.
+...
+* What went wrong:
+Script compilation error:
+
+  Line 29: java.sourceCompatibility = JavaVersion.VERSION_14
+                                                  ^ Unresolved reference: VERSION_14
+
+1 error
+```
+
+```kotlin
+// works:
+...
+JavaVersion.VERSION_12
+...
+image = "openjdk:14"
+
+// but for consistency
+...
+JavaVersion.VERSION_12
+...
+image = "openjdk:12"
 ```
 
 ##### links
-- https://github.com/stelligent/skaffold_on_aws
-- https://github.com/aws-samples/aws-microservices-deploy-options/blob/master/skaffold.md
+- https://github.com/GoogleContainerTools/jib/search?q=java+14&type=Code
+- https://github.com/GoogleContainerTools/jib/blob/master/jib-core/CHANGELOG.md
+- https://github.com/GoogleContainerTools/jib/issues/2015
+- https://github.com/GoogleContainerTools/jib/pull/2017/files
+- https://github.com/GoogleContainerTools/jib/issues/2015#issuecomment-534168864
+- https://asm.ow2.io/versions.html
+- java 8 or 11 -> https://github.com/GoogleContainerTools/distroless/tree/master/java
+- https://github.com/GoogleContainerTools/distroless/tree/master/java#image-contents
+- https://github.com/GoogleContainerTools/distroless/blob/master/examples/java/Dockerfile
+- https://console.cloud.google.com/gcr/images/distroless/GLOBAL/java?gcrImageListsize=30&gcrImageListsort=-uploaded (version 11)
 
 # Blog posts
 - [Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info](https://www.lotharschulz.info/2019/10/17/deploy-kotlin-applications-to-kubernetes-without-dockerfiles/)
