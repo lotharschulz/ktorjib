@@ -64,17 +64,9 @@ curl http://0.0.0.0:8080
 docker rmi $(docker images -q)
 ```
 
-###### notes
-- https://github.com/GoogleContainerTools/jib/search?q=java+14&type=Code
-- https://github.com/GoogleContainerTools/jib/blob/master/jib-core/CHANGELOG.md
-- https://github.com/GoogleContainerTools/jib/issues/2015
-- https://github.com/GoogleContainerTools/jib/pull/2017/files
-- https://github.com/GoogleContainerTools/jib/issues/2015#issuecomment-534168864
-- https://asm.ow2.io/versions.html
+##### Notes
 
-- https://github.com/GoogleContainerTools/distroless/blob/master/examples/java/Dockerfile
-- https://console.cloud.google.com/gcr/images/distroless/GLOBAL/java?gcrImageListsize=30&gcrImageListsort=-uploaded (version 11)
-- java 8 or 11 -> https://github.com/GoogleContainerTools/distroless/tree/master/java
+###### Java versions
 
 ```
 FAILURE: Build failed with an exception
@@ -114,9 +106,24 @@ JavaVersion.VERSION_12
 image = "openjdk:12"
 ```
 
+####### links
+- https://github.com/GoogleContainerTools/jib/search?q=java+14&type=Code
+- https://github.com/GoogleContainerTools/jib/blob/master/jib-core/CHANGELOG.md
+- https://github.com/GoogleContainerTools/jib/issues/2015
+- https://github.com/GoogleContainerTools/jib/pull/2017/files
+- https://github.com/GoogleContainerTools/jib/issues/2015#issuecomment-534168864
+- https://asm.ow2.io/versions.html
+- java 8 or 11 -> https://github.com/GoogleContainerTools/distroless/tree/master/java
+- https://github.com/GoogleContainerTools/distroless/tree/master/java#image-contents
+- https://github.com/GoogleContainerTools/distroless/blob/master/examples/java/Dockerfile
+- https://console.cloud.google.com/gcr/images/distroless/GLOBAL/java?gcrImageListsize=30&gcrImageListsort=-uploaded (version 11)
+
+###### start minikube
 ```
 minikube start --v=5 --kubernetes-version=1.18.0
 ```
+
+###### skaffold & aws
 
 ```
 # eks cluster creation via eksctl similar to https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/
@@ -125,10 +132,10 @@ ENDPOINT_URL=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.end
 echo $ENDPOINT_URL
 CA_CERT=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.certificateAuthority.data --output text)
 echo $CA_CERT
+AWS_PROFILE=test
+echo $AWS_PROFILE
 AWS_REGION=$(aws configure get region)
 echo $AWS_REGION
-AWS_ENV=test
-echo AWS_ENV
 
 # install https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
 
@@ -166,11 +173,68 @@ users:
       command: aws
       env:
       - name: AWS_PROFILE
-        value: $AWS_ENV
+        value: $AWS_PROFILE
 KBCFG
 export KUBECONFIG=$KUBECONFIG:~/.kube/config-${cluster_name}
+echo $KUBECONFIG
+
+# assuming aws cli v2 - https://aws.amazon.com/blogs/developer/aws-cli-v2-is-now-generally-available/
+aws --version
+
+# ecr login (https://github.com/aws/aws-cli/issues/4962)
+echo $(aws ecr get-login-password)|docker login --password-stdin --username AWS https://$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_REGION}.amazonaws.com
+
+# create or use an existing ECR repository
+export ECRREPO_NAME=[ktorjib]
+echo $ECRREPO_NAME
+export ECRREPO_URI=$(aws ecr describe-repositories --repository-names $ECRREPO_NAME --query 'repositories[0].repositoryUri' --output text)
+echo $ECRREPO_URI
+
+export KUBE_SECRET_LABEL=$(aws sts get-caller-identity --query 'Account' --output text)--${AWS_REGION}--${AWS_PROFILE}--ecr--registry--secret
+echo $KUBE_SECRET_LABEL
+export KUBE_SECRET_PASSWORD=$(aws ecr get-authorization-token --output text --query 'authorizationData[0].authorizationToken' | base64 -d | cut -d: -f2)
+echo $KUBE_SECRET_PASSWORD
+KUBE_SECRET_EMAIL=[me@you.com]
+echo $KUBE_SECRET_EMAIL
+
+# configure kubectl to log into ECR
+kubectl delete secret --ignore-not-found $KUBE_SECRET_LABEL
+kubectl create secret docker-registry $KUBE_SECRET_LABEL \
+ --docker-server=https://${ECRREPO_URI} \
+ --docker-username=AWS \
+ --docker-password="${KUBE_SECRET_PASSWORD}" \
+ --docker-email="${KUBE_SECRET_EMAIL}"
+
+# set up namespace
+export KTORJIB_K8S_NAMESPACE=ktorjib
+echo ${KTORJIB_K8S_NAMESPACE}
+kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
+kubectl get namespaces
+
+# set up skaffold config
+cat << SKFLDCFG > skaffold.yaml
+# inspired by https://github.com/GoogleContainerTools/skaffold/blob/master/examples/jib-gradle/skaffold.yaml @ 2020 04 19
+apiVersion: skaffold/v2beta2
+kind: Config
+build:
+  artifacts:
+    - image: ${ECRREPO_URI}
+      jib: {}
+  cluster:
+    namespace: ${KTORJIB_K8S_NAMESPACE}
+deploy:
+  kubectl:
+    manifests:
+      - k8s-*
+SKFLDCFG
+
+# copy the skaffold config file for backup
+cp skaffold.yaml skaffold-ecr.yaml_
 ```
 
+####### links
+- https://github.com/stelligent/skaffold_on_aws
+- https://github.com/aws-samples/aws-microservices-deploy-options/blob/master/skaffold.md
 
 #### Blog posts
 - [Deploy Kotlin Applications to Kubernetes without Dockerfiles on lotharschulz.info](https://www.lotharschulz.info/2019/10/17/deploy-kotlin-applications-to-kubernetes-without-dockerfiles/)
