@@ -31,7 +31,7 @@ The bash script checks the service endpoint for code changes becoming effective.
 The `web-eks.sh` script assumes kubernetes runs on [EKS](web-eks.sh#L12) and the [web kubernetes service is already deployed](web-eks.sh#L13).
 The `web.sh` script assumes kubernetes runs on [minikube](web.sh#L9) and the [web kubernetes service is already deployed](web.sh#L10).
 
-### Screencast
+### Screencasts
 
 #### EKS on AWS
 [![asciicast](https://asciinema.org/a/321763.svg)](https://asciinema.org/a/321763?t=20)
@@ -156,7 +156,8 @@ kubectl create secret docker-registry $KUBE_SECRET_LABEL \
  --docker-password="${KUBE_SECRET_PASSWORD}" \
  --docker-email="${KUBE_SECRET_EMAIL}"
 
-## set up namespace
+# https://github.com/GoogleContainerTools/skaffold/issues/3981
+## set up kubernetes namespace
 #export KTORJIB_K8S_NAMESPACE=ktorjib
 #echo ${KTORJIB_K8S_NAMESPACE}
 #kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
