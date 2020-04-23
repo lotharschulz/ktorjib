@@ -9,7 +9,7 @@ IFS=$'\n\t'
 
 while :
 do
-  endpoint=$(kubectl describe svc web | grep Endpoints:)
+  endpoint=$(kubectl describe svc web -n ktorjib | grep Endpoints:)
   ip_port=${endpoint:26:28} # ending 18 was enough in a lot of cases
   echo "curl http://$ip_port: "
   curl http://$ip_port || true
