@@ -156,12 +156,11 @@ kubectl create secret docker-registry $KUBE_SECRET_LABEL \
  --docker-password="${KUBE_SECRET_PASSWORD}" \
  --docker-email="${KUBE_SECRET_EMAIL}"
 
-# https://github.com/GoogleContainerTools/skaffold/issues/3981
-## set up kubernetes namespace
-#export KTORJIB_K8S_NAMESPACE=ktorjib
-#echo ${KTORJIB_K8S_NAMESPACE}
-#kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
-#kubectl get namespaces
+# set up kubernetes namespace
+export KTORJIB_K8S_NAMESPACE=ktorjib
+echo ${KTORJIB_K8S_NAMESPACE}
+kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
+kubectl get namespaces
 
 # set up skaffold config
 cat << SKFLDCFG > skaffold.yaml
@@ -173,15 +172,14 @@ build:
     #- image: gcr.io/ktor-jib/kjib-image
     - image: ${ECRREPO_URI}
       jib: {}
-#  cluster:
-#    namespace: ${KTORJIB_K8S_NAMESPACE}
 SKFLDCFG
 
 # copy the skaffold config file for backup
 cp skaffold.yaml skaffold-ecr.yaml_
 
-# start skaffold flow
-skaffold dev
+# start skaffold flow 
+# kubernetes namespace can be specified with ENV var `SKAFFOLD_NAMESPACE` or cli parameter `--namespace`
+skaffold dev --namespace KTORJIB_K8S_NAMESPACE
 ```
 
 ### links
