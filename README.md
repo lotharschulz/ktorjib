@@ -1,6 +1,4 @@
-# Continuous Delivery to Kubernetes with [Kotlin](https://kotlinlang.org/), [Ktor](https://github.com/ktorio/ktor), [Gradle](https://gradle.org/), [Jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [Kubernetes](https://kubernetes.io/) ([EKS](https://aws.amazon.com/eks/))  
-
-kotlin, ktor, gradle, jib, skaffold, kubernetes (EKS)
+# Continuous Delivery to Kubernetes with [Kotlin](https://kotlinlang.org/), [Ktor](https://github.com/ktorio/ktor), [Gradle](https://gradle.org/), [Jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [Kubernetes](https://kubernetes.io/) ([EKS](https://aws.amazon.com/eks/) & [Minikube](https://kubernetes.io/docs/setup/minikube/))  
 
 ## Preconditions
 - [jq](https://stedolan.github.io/jq/download/)
@@ -74,11 +72,14 @@ curl http://0.0.0.0:8080
 docker rmi $(docker images -q)
 ```
 
-## Skaffold -> EKS, ECR on AWS
+## Skaffold deployment to [EKS](https://aws.amazon.com/eks/) with [ECR](https://aws.amazon.com/ecr/) ([AWS](https://aws.amazon.com/))
+
+The steps below assume an EKS Kubernetes cluster is in place. The setup might be similar to the one described in [ALB INGRESS Controller CrashLoopBackOffs in AWS EKS on FARGATE](https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/).
+The steps below assume an ENV variable `$CLUSTER_NAME` holding the actual Kubernetes cluster name is in place in the terminal session.
+
+1. Define additional ENV variables for later use.
 
 ```
-# eks cluster creation via eksctl similar to https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/
-# eksctl create cluster .... with defined ENV '$CLUSTER_NAME' 
 ENDPOINT_URL=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.endpoint --output text)
 echo $ENDPOINT_URL
 CA_CERT=$(aws eks describe-cluster --name $CLUSTER_NAME --query cluster.certificateAuthority.data --output text)
@@ -87,9 +88,12 @@ AWS_PROFILE=test
 echo $AWS_PROFILE
 AWS_REGION=$(aws configure get region)
 echo $AWS_REGION
+```
 
-# install https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
+2. [Install aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 
+3. configure `kubectl` with EKS cluster via `KUBECONFIG` ENV variable
+```
 ll ~/.kube
 # in case the folder does not exists
 mkdir -p ~/.kube
@@ -128,7 +132,11 @@ users:
 KBCFG
 export KUBECONFIG=$KUBECONFIG:~/.kube/config-${cluster_name}
 echo $KUBECONFIG
+```
 
+4. TODO
+
+```
 # assuming aws cli v2 - https://aws.amazon.com/blogs/developer/aws-cli-v2-is-now-generally-available/
 aws --version
 
@@ -186,7 +194,7 @@ skaffold dev --namespace KTORJIB_K8S_NAMESPACE
 - https://github.com/stelligent/skaffold_on_aws
 - https://github.com/aws-samples/aws-microservices-deploy-options/blob/master/skaffold.md
 
-## Skaffold -> Minikube
+## Skaffold deployment to Minikube
 ```
 minikube start --v=5 --kubernetes-version=1.18.0
 # start skaffold flow
