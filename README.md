@@ -74,8 +74,10 @@ docker rmi $(docker images -q)
 
 ## Skaffold deployment to [EKS](https://aws.amazon.com/eks/) with [ECR](https://aws.amazon.com/ecr/) ([AWS](https://aws.amazon.com/))
 
-The steps below assume an EKS Kubernetes cluster is in place. The setup might be similar to the one described in [ALB INGRESS Controller CrashLoopBackOffs in AWS EKS on FARGATE](https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/).
-The steps below assume an ENV variable `$CLUSTER_NAME` holding the actual Kubernetes cluster name is in place in the terminal session.
+The steps below assume an EKS Kubernetes cluster is in place. 
+The canonical way to create an EKS cluster would be [eksctl](https://eksctl.io/usage/creating-and-managing-clusters/): `eksctl create cluster`.
+That is a similar setup as in [ALB INGRESS Controller CrashLoopBackOffs in AWS EKS on FARGATE](https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/).
+The steps below assume an ENV variable `$CLUSTER_NAME` that holds the Kubernetes cluster name in the terminal session.
 
 1. Define additional ENV variables for later use.
 
