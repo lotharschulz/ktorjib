@@ -75,9 +75,9 @@ docker rmi $(docker images -q)
 ## Skaffold deployment to [EKS](https://aws.amazon.com/eks/) with [ECR](https://aws.amazon.com/ecr/) ([AWS](https://aws.amazon.com/))
 
 The steps below assume an EKS Kubernetes cluster is in place. 
-The canonical way to create an EKS cluster would be [eksctl](https://eksctl.io/usage/creating-and-managing-clusters/): `eksctl create cluster`.
+The canonical way to create an EKS cluster would be [eksctl](https://eksctl.io/usage/creating-and-managing-clusters/): `eksctl create cluster ... `. 
 That is a similar setup as in [ALB INGRESS Controller CrashLoopBackOffs in AWS EKS on FARGATE](https://www.lotharschulz.info/2020/01/29/alb-ingress-controller-crashloopbackoffs-in-aws-eks-on-fargate/).
-The steps below assume an ENV variable `$CLUSTER_NAME` that holds the Kubernetes cluster name in the terminal session.
+The steps below assume an _ENV_ variable `$CLUSTER_NAME` that holds the Kubernetes cluster name in the terminal session.
 
 1. Define additional ENV variables for later use.
 
@@ -99,7 +99,9 @@ echo $AWS_REGION
 ll ~/.kube
 # in case the folder does not exists
 mkdir -p ~/.kube
+```
 
+```
 cat << KBCFG > ~/.kube/config-${CLUSTER_NAME}
 apiVersion: v1
 clusters:
@@ -131,12 +133,15 @@ users:
       env:
       - name: AWS_PROFILE
         value: $AWS_PROFILE
+```
+
+```
 KBCFG
 export KUBECONFIG=$KUBECONFIG:~/.kube/config-${cluster_name}
 echo $KUBECONFIG
 ```
 
-4. TODO
+4. ECR login
 
 ```
 # assuming aws cli v2 - https://aws.amazon.com/blogs/developer/aws-cli-v2-is-now-generally-available/
@@ -144,13 +149,21 @@ aws --version
 
 # ecr login (https://github.com/aws/aws-cli/issues/4962)
 echo $(aws ecr get-login-password)|docker login --password-stdin --username AWS https://$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_REGION}.amazonaws.com
+```
 
-# create or use an existing ECR repository
+5. ECR repository
+
+```
+# use an existing ECR repository or create one: `  create-repository --repository-name ... `
 export ECRREPO_NAME=[ktorjib]
 echo $ECRREPO_NAME
 export ECRREPO_URI=$(aws ecr describe-repositories --repository-names $ECRREPO_NAME --query 'repositories[0].repositoryUri' --output text)
 echo $ECRREPO_URI
+```
 
+6. kube secret to configure docker registry
+
+```
 export KUBE_SECRET_LABEL=$(aws sts get-caller-identity --query 'Account' --output text)--${AWS_REGION}--${AWS_PROFILE}--ecr--registry--secret
 echo $KUBE_SECRET_LABEL
 export KUBE_SECRET_PASSWORD=$(aws ecr get-authorization-token --output text --query 'authorizationData[0].authorizationToken' | base64 -d | cut -d: -f2)
@@ -165,13 +178,20 @@ kubectl create secret docker-registry $KUBE_SECRET_LABEL \
  --docker-username=AWS \
  --docker-password="${KUBE_SECRET_PASSWORD}" \
  --docker-email="${KUBE_SECRET_EMAIL}"
+```
 
-# set up kubernetes namespace
+7. set up kubernetes namespace
+
+```
 export KTORJIB_K8S_NAMESPACE=ktorjib
 echo ${KTORJIB_K8S_NAMESPACE}
 kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
 kubectl get namespaces
+```
 
+8. skaffold config
+
+```
 # set up skaffold config
 cat << SKFLDCFG > skaffold.yaml
 # inspired by https://github.com/GoogleContainerTools/skaffold/blob/master/examples/jib-gradle/skaffold.yaml @ 2020 04 19
@@ -184,13 +204,17 @@ build:
       jib: {}
 SKFLDCFG
 
-# copy the skaffold config file for backup
+# optional: copy the skaffold config file for backup
 cp skaffold.yaml skaffold-ecr.yaml_
+```
 
-# start skaffold flow 
-# kubernetes namespace can be specified with ENV var `SKAFFOLD_NAMESPACE` or cli parameter `--namespace`
+9. start skaffold flow 
+
+```
 skaffold dev --namespace KTORJIB_K8S_NAMESPACE
 ```
+
+_note_: kubernetes namespace can be specified with ENV var `SKAFFOLD_NAMESPACE` or cli parameter `--namespace` 
 
 ### links
 - https://github.com/stelligent/skaffold_on_aws
