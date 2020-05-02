@@ -1,19 +1,19 @@
 # Continuous Delivery to Kubernetes with [Kotlin](https://kotlinlang.org/), [Ktor](https://github.com/ktorio/ktor), [Gradle](https://gradle.org/), [Jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [Kubernetes](https://kubernetes.io/) ([EKS](https://aws.amazon.com/eks/) & [Minikube](https://kubernetes.io/docs/setup/minikube/))  
 
-## Preconditions
+## Tech preconditions
 - [Kubernetes](https://kubernetes.io/) (v1.18.0 on minikube, 1.15 on EKS)
 - [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.9.2)
   - one VM provider [VirtualBox](https://www.virtualbox.org/)
 - [Docker](https://www.docker.com/) (v19.03.8)
 - [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.8.0)
 - [Java 12](https://jdk.java.net/12/)
-  - [community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
+  - [Community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
 - [Kotlin](https://kotlinlang.org/) (1.3.72)
 - [Ktor](https://ktor.io/) (1.3.2)
 - [Gradle](https://gradle.org/) (v6.2.2)
 - [Jib](https://github.com/GoogleContainerTools/jib) (2.1.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
-- [jq](https://stedolan.github.io/jq/download/) (v1.5)
+- [Jq](https://stedolan.github.io/jq/download/) (v1.5)
 
 ## Continuous delivery
 ```
@@ -37,38 +37,6 @@ The `web.sh` script assumes kubernetes runs on [minikube](web.sh#L9) and the [we
 #### Skaffold deployment to Minikube
 [![asciicast](https://asciinema.org/a/vfx729qpylmfdroBTXJmTH2bw.svg)](https://asciinema.org/a/vfx729qpylmfdroBTXJmTH2bw?t=14)
 
-### Run application
-
-#### Run application with Jib & Docker
-```
-./gradlew jibDockerBuild && docker run --rm -p 8080:8080 ktor01.1:1.1-SNAPSHOT
-# specify docker image name
-./gradlew jibDockerBuild --image=myimagename && docker run --rm -p 8080:8080 myimagename
-```
-access the endpoint:
-```
-curl http://0.0.0.0:8080
-```
-
-#### Run application with Gradle
-```
-./gradlew run
-```        
-access the endpoint:
-```
-curl http://0.0.0.0:8080
-```
-
-### Test application
-```
-./gradlew test
-```
-
-### Clean up with Gradle
-```
-./gradlew clean
-docker rmi $(docker images -q)
-```
 
 ## Skaffold deployment to [EKS](https://aws.amazon.com/eks/) with [ECR](https://aws.amazon.com/ecr/) ([AWS](https://aws.amazon.com/))
 
@@ -92,7 +60,7 @@ echo $AWS_REGION
 
 2. [Install aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
 
-3. configure `kubectl` with EKS cluster via `KUBECONFIG` ENV variable
+3. Configure `kubectl` with EKS cluster via `KUBECONFIG` ENV variable
 ```
 ll ~/.kube
 # in case the folder does not exists
@@ -159,7 +127,7 @@ export ECRREPO_URI=$(aws ecr describe-repositories --repository-names $ECRREPO_N
 echo $ECRREPO_URI
 ```
 
-6. kube secret to configure docker registry
+6. Kube secret to configure docker registry
 
 ```
 export KUBE_SECRET_LABEL=$(aws sts get-caller-identity --query 'Account' --output text)--${AWS_REGION}--${AWS_PROFILE}--ecr--registry--secret
@@ -178,7 +146,7 @@ kubectl create secret docker-registry $KUBE_SECRET_LABEL \
  --docker-email="${KUBE_SECRET_EMAIL}"
 ```
 
-7. set up kubernetes namespace
+7. Set up kubernetes namespace
 
 ```
 export KTORJIB_K8S_NAMESPACE=ktorjib
@@ -187,7 +155,7 @@ kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
 kubectl get namespaces
 ```
 
-8. skaffold config
+8. Skaffold config
 
 ```
 # set up skaffold config
@@ -206,7 +174,7 @@ SKFLDCFG
 cp skaffold.yaml skaffold-ecr.yaml_
 ```
 
-9. start skaffold flow 
+9. Start skaffold flow 
 
 ```
 skaffold dev --namespace KTORJIB_K8S_NAMESPACE
@@ -214,7 +182,7 @@ skaffold dev --namespace KTORJIB_K8S_NAMESPACE
 
 _note_: kubernetes namespace can be specified with ENV var `SKAFFOLD_NAMESPACE` or cli parameter `--namespace` 
 
-### links
+### Links
 - https://github.com/stelligent/skaffold_on_aws
 - https://github.com/aws-samples/aws-microservices-deploy-options/blob/master/skaffold.md
 
@@ -225,9 +193,42 @@ minikube start --v=5 --kubernetes-version=1.18.0
 skaffold dev
 ```
 
-### Notes
+### Run application
 
-#### Java versions
+#### Run application with Jib & Docker
+```
+./gradlew jibDockerBuild && docker run --rm -p 8080:8080 ktor01.1:1.1-SNAPSHOT
+# specify docker image name
+./gradlew jibDockerBuild --image=myimagename && docker run --rm -p 8080:8080 myimagename
+```
+access the endpoint:
+```
+curl http://0.0.0.0:8080
+```
+
+#### Run application with Gradle
+```
+./gradlew run
+```        
+access the endpoint:
+```
+curl http://0.0.0.0:8080
+```
+
+### Test application
+```
+./gradlew test
+```
+
+### Clean up with Gradle
+```
+./gradlew clean
+docker rmi $(docker images -q)
+```
+
+## Notes
+
+### Java versions
 
 ```
 FAILURE: Build failed with an exception
@@ -267,7 +268,7 @@ JavaVersion.VERSION_12
 image = "openjdk:12"
 ```
 
-##### links
+### Links
 - https://github.com/GoogleContainerTools/jib/search?q=java+14&type=Code
 - https://github.com/GoogleContainerTools/jib/blob/master/jib-core/CHANGELOG.md
 - https://github.com/GoogleContainerTools/jib/issues/2015
