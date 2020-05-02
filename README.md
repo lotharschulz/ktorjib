@@ -1,7 +1,6 @@
 # Continuous Delivery to Kubernetes with [Kotlin](https://kotlinlang.org/), [Ktor](https://github.com/ktorio/ktor), [Gradle](https://gradle.org/), [Jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [Kubernetes](https://kubernetes.io/) ([EKS](https://aws.amazon.com/eks/) & [Minikube](https://kubernetes.io/docs/setup/minikube/))  
 
 ## Preconditions
-- [jq](https://stedolan.github.io/jq/download/)
 - [Kubernetes](https://kubernetes.io/) (v1.18.0 on minikube, 1.15 on EKS)
 - [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.9.2)
   - one VM provider [VirtualBox](https://www.virtualbox.org/)
@@ -14,6 +13,7 @@
 - [Gradle](https://gradle.org/) (v6.2.2)
 - [Jib](https://github.com/GoogleContainerTools/jib) (2.1.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
+- [jq](https://stedolan.github.io/jq/download/) (v1.5)
 
 ## Continuous delivery
 ```
@@ -31,10 +31,10 @@ The `web.sh` script assumes kubernetes runs on [minikube](web.sh#L9) and the [we
 
 ### Screencasts
 
-#### EKS on AWS
+#### Skaffold deployment to [EKS](https://aws.amazon.com/eks/) with [ECR](https://aws.amazon.com/ecr/) ([AWS](https://aws.amazon.com/))
 [![asciicast](https://asciinema.org/a/321763.svg)](https://asciinema.org/a/321763?t=20)
 
-#### Minikube in local
+#### Skaffold deployment to Minikube
 [![asciicast](https://asciinema.org/a/vfx729qpylmfdroBTXJmTH2bw.svg)](https://asciinema.org/a/vfx729qpylmfdroBTXJmTH2bw?t=14)
 
 ### Run application
@@ -51,7 +51,6 @@ curl http://0.0.0.0:8080
 ```
 
 #### Run application with Gradle
-
 ```
 ./gradlew run
 ```        
@@ -61,7 +60,6 @@ curl http://0.0.0.0:8080
 ```
 
 ### Test application
-
 ```
 ./gradlew test
 ```
