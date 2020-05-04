@@ -193,7 +193,9 @@ minikube start --v=5 --kubernetes-version=1.18.0
 skaffold dev
 ```
 
-### Run application
+------
+
+### Run application w/o Kubernetes
 
 #### Run application with Jib & Docker
 ```
@@ -225,6 +227,8 @@ curl http://0.0.0.0:8080
 ./gradlew clean
 docker rmi $(docker images -q)
 ```
+
+------
 
 ## Notes
 
@@ -267,6 +271,8 @@ JavaVersion.VERSION_12
 ...
 image = "openjdk:12"
 ```
+
+------
 
 ### Links
 - https://github.com/GoogleContainerTools/jib/search?q=java+14&type=Code
