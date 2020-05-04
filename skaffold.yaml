@@ -1,7 +1,8 @@
-# https://github.com/GoogleContainerTools/skaffold/blob/master/examples/jib-gradle/skaffold.yaml#L1-L6 @ 2019 10 08
-apiVersion: skaffold/v1beta15
+# inspired by https://github.com/GoogleContainerTools/skaffold/blob/master/examples/jib-gradle/skaffold.yaml @ 2020 04 19
+apiVersion: skaffold/v2beta2
 kind: Config
 build:
   artifacts:
     - image: gcr.io/ktor-jib/kjib-image
+    # - image: [$ECRREPO_URI]
       jib: {}

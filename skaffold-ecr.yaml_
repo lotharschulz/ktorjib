@@ -1,0 +1,13 @@
+# inspired by https://github.com/GoogleContainerTools/skaffold/blob/master/examples/jib-gradle/skaffold.yaml\#L1-L6 @ 2020 04 19
+apiVersion: skaffold/v2beta2
+kind: Config
+build:
+  artifacts:
+    - image: [$ECRREPO_URI]
+      jib: {}
+#  cluster:
+#    namespace: [$KTORJIB_K8S_NAMESPACE]
+deploy:
+  kubectl:
+    manifests:
+      - k8s-*

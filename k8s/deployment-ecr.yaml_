@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
-  labels:
-    app: web
 spec:
   selector:
     matchLabels:
@@ -15,7 +13,6 @@ spec:
     spec:
       containers:
         - name: web
-          #image: gcr.io/ktor-jib/kjib-image
           image: ${ECRREPO_URI}
           ports:
             - containerPort: 8080
