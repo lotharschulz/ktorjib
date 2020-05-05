@@ -118,7 +118,7 @@ echo $(aws ecr get-login-password)|docker login --password-stdin --username AWS 
 4. ECR repository
 
 ```
-# use an existing ECR repository or create one: `  create-repository --repository-name ... `
+# use an existing ECR repository or create one: `aws ecr create-repository --repository-name ... `
 export ECRREPO_NAME=[ktorjib]
 echo $ECRREPO_NAME
 export ECRREPO_URI=$(aws ecr describe-repositories --repository-names $ECRREPO_NAME --query 'repositories[0].repositoryUri' --output text)
