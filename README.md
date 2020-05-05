@@ -97,10 +97,10 @@ users:
       env:
       - name: AWS_PROFILE
         value: $AWS_PROFILE
+KBCFG
 ```
 
 ```
-KBCFG
 export KUBECONFIG=$KUBECONFIG:~/.kube/config-${cluster_name}
 echo $KUBECONFIG
 ```
