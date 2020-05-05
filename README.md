@@ -58,9 +58,7 @@ AWS_REGION=$(aws configure get region)
 echo $AWS_REGION
 ```
 
-2. [Install aws-iam-authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html)
-
-3. Configure `kubectl` with EKS cluster via `KUBECONFIG` ENV variable
+2. Configure `kubectl` with EKS cluster via `KUBECONFIG` ENV variable
 ```
 ll ~/.kube
 # in case the folder does not exists
@@ -107,7 +105,7 @@ export KUBECONFIG=$KUBECONFIG:~/.kube/config-${cluster_name}
 echo $KUBECONFIG
 ```
 
-4. ECR login
+3. ECR login
 
 ```
 # assuming aws cli v2 - https://aws.amazon.com/blogs/developer/aws-cli-v2-is-now-generally-available/
@@ -117,7 +115,7 @@ aws --version
 echo $(aws ecr get-login-password)|docker login --password-stdin --username AWS https://$(aws sts get-caller-identity --query 'Account' --output text).dkr.ecr.${AWS_REGION}.amazonaws.com
 ```
 
-5. ECR repository
+4. ECR repository
 
 ```
 # use an existing ECR repository or create one: `  create-repository --repository-name ... `
@@ -127,7 +125,7 @@ export ECRREPO_URI=$(aws ecr describe-repositories --repository-names $ECRREPO_N
 echo $ECRREPO_URI
 ```
 
-6. Kube secret to configure docker registry
+5. Kube secret to configure docker registry
 
 ```
 export KUBE_SECRET_LABEL=$(aws sts get-caller-identity --query 'Account' --output text)--${AWS_REGION}--${AWS_PROFILE}--ecr--registry--secret
@@ -146,7 +144,7 @@ kubectl create secret docker-registry $KUBE_SECRET_LABEL \
  --docker-email="${KUBE_SECRET_EMAIL}"
 ```
 
-7. Set up kubernetes namespace
+6. Set up kubernetes namespace
 
 ```
 export KTORJIB_K8S_NAMESPACE=ktorjib
@@ -155,7 +153,7 @@ kubectl create namespace ${KTORJIB_K8S_NAMESPACE}
 kubectl get namespaces
 ```
 
-8. Skaffold config
+7. Skaffold config
 
 ```
 # set up skaffold config
@@ -174,7 +172,7 @@ SKFLDCFG
 cp skaffold.yaml skaffold-ecr.yaml_
 ```
 
-9. Start skaffold flow 
+8. Start skaffold flow 
 
 ```
 skaffold dev --namespace KTORJIB_K8S_NAMESPACE
