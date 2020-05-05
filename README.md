@@ -101,7 +101,7 @@ KBCFG
 ```
 
 ```
-export KUBECONFIG=$KUBECONFIG:~/.kube/config-${cluster_name}
+export KUBECONFIG=$KUBECONFIG:~/.kube/config-${CLUSTER_NAME}
 echo $KUBECONFIG
 ```
 
