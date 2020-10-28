@@ -10,7 +10,7 @@
   - [Community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
 - [Kotlin](https://kotlinlang.org/) (1.4.10)
 - [Ktor](https://ktor.io/) (1.4.1)
-- [Gradle](https://gradle.org/) (v6.2.2)
+- [Gradle](https://gradle.org/) (v6.3)
 - [Jib](https://github.com/GoogleContainerTools/jib) (2.6.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
 - [Jq](https://stedolan.github.io/jq/download/) (v1.6)
