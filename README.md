@@ -186,7 +186,7 @@ _note_: kubernetes namespace can be specified with ENV var `SKAFFOLD_NAMESPACE` 
 
 ## Skaffold deployment to Minikube
 ```
-minikube start --v=5 --kubernetes-version=1.19.0
+minikube start --kubernetes-version=1.19.2
 # start skaffold flow
 skaffold dev
 ```
