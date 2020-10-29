@@ -1,19 +1,19 @@
 # Continuous Delivery to Kubernetes with [Kotlin](https://kotlinlang.org/), [Ktor](https://github.com/ktorio/ktor), [Gradle](https://gradle.org/), [Jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [Kubernetes](https://kubernetes.io/) ([EKS](https://aws.amazon.com/eks/) & [Minikube](https://kubernetes.io/docs/setup/minikube/))  
 
 ## Tech preconditions
-- [Kubernetes](https://kubernetes.io/) (v1.18.0 on minikube, 1.15 on EKS)
-- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.9.2)
+- [Kubernetes](https://kubernetes.io/) (v1.19.0 on minikube, 1.17.9 on EKS)
+- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.14.1)
   - one VM provider [VirtualBox](https://www.virtualbox.org/)
-- [Docker](https://www.docker.com/) (v19.03.8)
-- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.8.0)
+- [Docker](https://www.docker.com/) (v19.03.13)
+- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.15.0)
 - [Java 12](https://jdk.java.net/12/)
   - [Community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
-- [Kotlin](https://kotlinlang.org/) (1.3.72)
-- [Ktor](https://ktor.io/) (1.3.2)
-- [Gradle](https://gradle.org/) (v6.2.2)
-- [Jib](https://github.com/GoogleContainerTools/jib) (2.1.0)
+- [Kotlin](https://kotlinlang.org/) (1.4.10)
+- [Ktor](https://ktor.io/) (1.4.1)
+- [Gradle](https://gradle.org/) (v6.3)
+- [Jib](https://github.com/GoogleContainerTools/jib) (2.6.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
-- [Jq](https://stedolan.github.io/jq/download/) (v1.5)
+- [Jq](https://stedolan.github.io/jq/download/) (v1.6)
 
 ## Continuous delivery
 ```
@@ -186,7 +186,7 @@ _note_: kubernetes namespace can be specified with ENV var `SKAFFOLD_NAMESPACE` 
 
 ## Skaffold deployment to Minikube
 ```
-minikube start --v=5 --kubernetes-version=1.18.0
+minikube start --kubernetes-version=1.19.2
 # start skaffold flow
 skaffold dev
 ```
@@ -256,7 +256,7 @@ Script compilation error:
 1 error
 ```
 
-```kotlin
+```
 // works:
 ...
 JavaVersion.VERSION_12

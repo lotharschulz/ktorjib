@@ -1,14 +1,14 @@
 plugins {
     application
-    kotlin("jvm") version "1.3.72"
-    id("com.google.cloud.tools.jib") version "2.1.0"
+    kotlin("jvm") version "1.4.10"
+    id("com.google.cloud.tools.jib") version "2.6.0"
 }
 
 group = "ktor01"
 version = "1.1-SNAPSHOT"
 
 
-val ktorVersion by extra("1.3.2")
+val ktorVersion by extra("1.4.1")
 val logbackVersion by extra("1.2.3")
 
 val mainClass by extra("io.ktor.server.netty.EngineMain")
@@ -42,7 +42,7 @@ dependencies {
 
 jib {
     from {
-        image = "openjdk:12"
+        image = "openjdk:12@sha256:835e400c2620ae21763dc5b00d48df71188ad55fd8bbdcc4ccb5513ef6f35710"
     }
     container {
         ports = listOf("8080")
