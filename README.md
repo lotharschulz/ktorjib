@@ -5,7 +5,7 @@
 - [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.14.1)
   - one VM provider [VirtualBox](https://www.virtualbox.org/)
 - [Docker](https://www.docker.com/) (v19.03.13)
-- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.15.0)
+- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.16.0)
 - [Java 12](https://jdk.java.net/12/)
   - [Community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
 - [Kotlin](https://kotlinlang.org/) (1.4.10)

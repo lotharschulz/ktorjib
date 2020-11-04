@@ -1,5 +1,5 @@
 # inspired by https://github.com/GoogleContainerTools/skaffold/blob/master/examples/jib-gradle/skaffold.yaml @ 2020 04 19
-apiVersion: skaffold/v2beta2
+apiVersion: skaffold/v2beta9
 kind: Config
 build:
   artifacts:
