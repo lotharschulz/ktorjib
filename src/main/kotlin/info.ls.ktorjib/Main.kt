@@ -11,8 +11,6 @@ import io.ktor.routing.Routing
 import io.ktor.routing.get
 
 fun Application.main() {
-    install(DefaultHeaders)
-    install(CallLogging)
     install(Routing) {
         get("/") {
             call.respondText("hi", ContentType.Text.Html)
