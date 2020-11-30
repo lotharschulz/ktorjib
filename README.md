@@ -2,8 +2,7 @@
 
 ## Tech preconditions
 - [Kubernetes](https://kubernetes.io/) (v1.19.0 on minikube, 1.17.9 on EKS)
-- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.14.1)
-  - one VM provider [VirtualBox](https://www.virtualbox.org/)
+- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.15.1)
 - [Docker](https://www.docker.com/) (v19.03.13)
 - [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.16.0)
 - [Java 12](https://jdk.java.net/12/)
