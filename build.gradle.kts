@@ -37,7 +37,7 @@ dependencies {
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
     implementation("io.ktor:ktor-metrics:$ktorVersion")
     implementation("io.ktor:ktor-html-builder:$ktorVersion")
-    testCompile ("io.ktor:ktor-server-test-host:$ktorVersion")
+    testRuntimeOnly ("io.ktor:ktor-server-test-host:$ktorVersion")
 }
 
 jib {
