@@ -18,6 +18,6 @@ If you are reporting a bug, please include:
 
 Please open a pull request in case you want to propose code changes.
 
-1. Add respective tests if the pull contains code changes.
+1. Add respective tests if the _pull request_ contains code changes.
 1. Please update the documentation (readme).
 1. Please assign the pull request and consider to set a label
