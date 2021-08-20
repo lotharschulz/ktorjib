@@ -16,3 +16,12 @@ do
         echo " "
         sleep 4s
 done
+
+
+# https://stackoverflow.com/questions/52277019/how-to-fix-vm-issue-with-minikube-start/52278212#52278212
+# https://stackoverflow.com/questions/60710171/minikube-ip-is-not-reachable/63243909#63243909
+
+# virtualbox based minikube did not work, even after steps in https://stackoverflow.com/questions/52277019/how-to-fix-vm-issue-with-minikube-start/52278212#52278212
+# docker based minikube requires to call `minikube service web` https://stackoverflow.com/questions/60710171/minikube-ip-is-not-reachable/63243909#63243909
+# that is hardly readable via shell script
+# -> hyperkit based minikube to enable the shell script above
