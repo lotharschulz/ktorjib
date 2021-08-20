@@ -1,15 +1,17 @@
 # Continuous Delivery to Kubernetes with [Kotlin](https://kotlinlang.org/), [Ktor](https://github.com/ktorio/ktor), [Gradle](https://gradle.org/), [Jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [Kubernetes](https://kubernetes.io/) ([EKS](https://aws.amazon.com/eks/) & [Minikube](https://kubernetes.io/docs/setup/minikube/))  
 
 ## Tech preconditions
-- [Kubernetes](https://kubernetes.io/) (v1.19.0 on minikube, 1.17.9 on EKS)
-- [Minikube](https://kubernetes.io/docs/setup/minikube/) (v1.15.1)
-- [Docker](https://www.docker.com/) (v19.03.13)
-- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.16.0)
+- [Docker](https://www.docker.com/) (v20.10.08)
+- [Minikube](https://kubernetes.io/docs/tasks/tools/#minikube) (v1.22.0)
+  - `minikube start --driver=hyperkit` or `minikube config set driver hyperkit`
+- [Kubernetes](https://kubernetes.io/) (v1.21.2 on minikube, 1.17.9 on EKS)
 - [Java 12](https://jdk.java.net/12/)
   - [Community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
-- [Kotlin](https://kotlinlang.org/) (1.4.10)
+  - [Change Java version on Mac 11 BigSur & persist it](https://www.lotharschulz.info/2021/01/11/change-default-java-version-on-macos-11-bigsur-persist-it/)
+- [Kotlin](https://kotlinlang.org/) (1.5.21)
+- [Gradle](https://gradle.org/) (v7.2)
+- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.30.0)
 - [Ktor](https://ktor.io/) (1.4.1)
-- [Gradle](https://gradle.org/) (v6.3)
 - [Jib](https://github.com/GoogleContainerTools/jib) (2.6.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
 - [Jq](https://stedolan.github.io/jq/download/) (v1.6)
@@ -227,7 +229,7 @@ docker rmi $(docker images -q)
 
 ------
 
-## Notes
+## Troubleshooting
 
 ### Java versions
 
