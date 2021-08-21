@@ -5,16 +5,16 @@ plugins {
 }
 
 group = "ktor01"
-version = "1.1-SNAPSHOT"
+version = "1.2-SNAPSHOT"
 
 
 val ktorVersion by extra("1.6.2")
-val logbackVersion by extra("1.2.3")
+val logbackVersion by extra("1.2.5")
 
-val mainClass by extra("io.ktor.server.netty.EngineMain")
+val mainClassStr by extra("io.ktor.server.netty.EngineMain")
 
 application {
-    mainClassName = mainClass
+    mainClassName = mainClassStr
 
     applicationDefaultJvmArgs = listOf(
             "-server",
@@ -26,18 +26,20 @@ application {
     )
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_12
+java {
+    sourceCompatibility = JavaVersion.VERSION_12
+    targetCompatibility = JavaVersion.VERSION_12
+}
 
 dependencies {
     implementation(kotlin("stdlib"))
 
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-
     implementation("io.ktor:ktor-server-core:$ktorVersion")
     implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-metrics:$ktorVersion")
-    implementation("io.ktor:ktor-html-builder:$ktorVersion")
-    testRuntimeOnly ("io.ktor:ktor-server-test-host:$ktorVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test")
+    testImplementation("io.ktor:ktor-server-test-host:$ktorVersion")
 }
 
 jib {
@@ -46,7 +48,7 @@ jib {
     }
     container {
         ports = listOf("8080")
-        mainClass = this@Build_gradle.mainClass
+        mainClass = this@Build_gradle.mainClassStr
     }
 }
 

@@ -3,7 +3,8 @@
 ## Tech preconditions
 - [Docker](https://www.docker.com/) (v20.10.08)
 - [Minikube](https://kubernetes.io/docs/tasks/tools/#minikube) (v1.22.0)
-  - `minikube start --driver=hyperkit` or `minikube config set driver hyperkit`
+  - mac: `minikube start --driver=hyperkit --kubernetes-version=1.21.2` or `minikube config set driver hyperkit`
+  - linux: `minikube start --driver=docker --kubernetes-version=1.21.2` or `minikube config set driver docker`
 - [Kubernetes](https://kubernetes.io/) (v1.21.2 on minikube, 1.17.9 on EKS)
 - [Java 12](https://jdk.java.net/12/)
   - [Community installation options not only for mac os](https://stackoverflow.com/questions/52524112/how-do-i-install-java-on-mac-osx-allowing-version-switching)
@@ -187,7 +188,11 @@ _note_: kubernetes namespace can be specified with ENV var `SKAFFOLD_NAMESPACE` 
 
 ## Skaffold deployment to Minikube
 ```
-minikube start --kubernetes-version=1.19.2
+#mac
+minikube start  --driver=hyperkit --kubernetes-version=1.21.2
+#linux
+minikube start  --driver=docker --kubernetes-version=1.21.2
+
 # start skaffold flow
 skaffold dev
 ```
@@ -198,8 +203,6 @@ skaffold dev
 
 #### Run application with Jib & Docker
 ```
-./gradlew jibDockerBuild && docker run --rm -p 8080:8080 ktor01.1:1.1-SNAPSHOT
-# specify docker image name
 ./gradlew jibDockerBuild --image=myimagename && docker run --rm -p 8080:8080 myimagename
 ```
 access the endpoint:
