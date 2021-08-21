@@ -11,7 +11,7 @@
 - [Kotlin](https://kotlinlang.org/) (1.5.21)
 - [Gradle](https://gradle.org/) (v7.2)
 - [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.30.0)
-- [Ktor](https://ktor.io/) (1.4.1)
+- [Ktor](https://ktor.io/) (1.6.2)
 - [Jib](https://github.com/GoogleContainerTools/jib) (2.6.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
 - [Jq](https://stedolan.github.io/jq/download/) (v1.6)
