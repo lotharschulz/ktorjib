@@ -5,7 +5,7 @@
 - [Minikube](https://kubernetes.io/docs/tasks/tools/#minikube) (v1.26.1)
   - mac: `minikube start --driver=hyperkit --kubernetes-version=1.25.0` or `minikube config set driver hyperkit`
   - linux: `minikube start --driver=docker --kubernetes-version=1.25.0` or `minikube config set driver docker`
-- [Kubernetes](https://kubernetes.io/) (v1.26.1 on minikube, 1.23.7 on EKS)
+- [Kubernetes](https://kubernetes.io/) (v1.25.0 on minikube, 1.23.7 on EKS)
 - [Java 17](https://jdk.java.net/17/)
 - [Kotlin](https://kotlinlang.org/) (1.6.21)
 - [Gradle](https://gradle.org/) (v7.3)
