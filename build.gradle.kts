@@ -43,8 +43,7 @@ dependencies {
 
 jib {
     from {
-//        image = "openjdk:12@sha256:835e400c2620ae21763dc5b00d48df71188ad55fd8bbdcc4ccb5513ef6f35710"
-        image = "openjdk:17"
+        image = "openjdk:17@sha256:528707081fdb9562eb819128a9f85ae7fe000e2fbaeaf9f87662e7b3f38cb7d8"
     }
     container {
         ports = listOf("8080")
