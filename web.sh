@@ -7,7 +7,7 @@ IFS=$'\n\t'
 # this script assumes the web kubernetes service (https://github.com/lotharschulz/ktorjib/blob/master/k8s/service.yaml#L4)
 # is already deployed.
 ip=$(minikube ip)
-port=$(kubectl get svc web -o json | jq '.spec? | .ports? | .[] | .nodePort?')
+port=$(kubectl get svc web -o=jsonpath='{.spec.ports[0].nodePort}')
 
 while :
 do

@@ -11,7 +11,6 @@
 - [Ktor](https://ktor.io/) (2.1.0)
 - [Jib](https://github.com/GoogleContainerTools/jib) (3.3.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
-- [Jq](https://stedolan.github.io/jq/download/) (v1.6)
 
 ## Continuous delivery
 ```
