@@ -10,7 +10,7 @@ Report issues at [GitHub Issues](https://github.com/lotharschulz/ktorjib/issues)
 
 If you are reporting a bug, please include:
 
-* Any details about your setup that might be helpful in troubleshooting.
+* Share any details about your setup that might be helpful in troubleshooting.
 * Detailed steps to reproduce the bug.
 * Please assign the bug and consider to set a label
 
