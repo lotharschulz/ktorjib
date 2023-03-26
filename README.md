@@ -1,7 +1,7 @@
 # Continuous Delivery to Kubernetes with [Kotlin](https://kotlinlang.org/), [Ktor](https://github.com/ktorio/ktor), [Gradle](https://gradle.org/), [Jib](https://github.com/GoogleContainerTools/jib#what-is-jib), [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) and [Kubernetes](https://kubernetes.io/) ([EKS](https://aws.amazon.com/eks/) & [Minikube](https://kubernetes.io/docs/setup/minikube/))  
 
 ## Tech preconditions
-- [Minikube](https://kubernetes.io/docs/tasks/tools/#minikube) (v1.26.1)
+- [Minikube](https://kubernetes.io/docs/tasks/tools/#minikube) (v1.29.0)
   - ```minikube start```
 - [Kubernetes](https://kubernetes.io/) (v1.24.3 on Docker 20.10.17 on minikube v1.26.1, 1.23.7 on EKS)
 - [Java 17](https://jdk.java.net/17/)
