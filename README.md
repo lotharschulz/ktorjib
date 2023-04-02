@@ -7,7 +7,7 @@
 - [Java 17](https://jdk.java.net/17/)
 - [Kotlin](https://kotlinlang.org/) (1.6.21)
 - [Gradle](https://gradle.org/) (v7.3)
-- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v1.39.2)
+- [Skaffold](https://skaffold.dev/docs/getting-started/#installing-skaffold) (v2.3.0)
 - [Ktor](https://ktor.io/) (2.1.0)
 - [Jib](https://github.com/GoogleContainerTools/jib) (3.3.0)
   - [Jib Gradle Plugin](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)
