@@ -11,7 +11,7 @@ port=$(kubectl get svc web -o=jsonpath='{.spec.ports[0].nodePort}')
 
 while :
 do
-        now=$(date +"%T:%N")
+        now=$(date +"%T")
         echo "$now curl http://$ip:$port: "
         curl http://$ip:$port || true
         echo -e "\n"
