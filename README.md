@@ -221,7 +221,9 @@ curl http://0.0.0.0:8080
 
 ### Clean up with Gradle
 ```
-./gradlew clean
+./gradlew clean &&
+docker stop $(docker ps -aq) &&
+docker rm $(docker ps -aq) &&
 docker rmi $(docker images -q)
 ```
 
